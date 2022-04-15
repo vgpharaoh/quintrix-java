@@ -37,13 +37,13 @@ public class CarsController {
 			return carsList;
 	}
 	}
-	@RequestMapping(method = RequestMethod.GET, value = "/cars")
+	/*@RequestMapping(method = RequestMethod.GET, value = "/cars")
 	
 	List<Car> getCars(){
 		return carsList;
 	}
-	
-	@RequestMapping(method = RequestMethod.GET, value = "/cars/(id)")
+	*/
+	@RequestMapping(method = RequestMethod.GET, value = "/cars/{id}")
 	Car getCarDetails(@PathVariable("id") Long id) {
 		
 		Optional<Car> car = 
@@ -53,7 +53,7 @@ public class CarsController {
 			return car.get();
 		}
 		else {
-		return new Car();
+		return null;
 		}
 	}
 
@@ -61,6 +61,9 @@ public class CarsController {
 @RequestMapping
 (method = RequestMethod.POST, value = "/cars")
 Car addCar(@RequestBody Car car) {
+	
+	carsList.add(car);
+	
 	return car;
 }
 
