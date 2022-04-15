@@ -2,6 +2,8 @@ package com.quintrix.jfs;
 import java.awt.Toolkit;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -65,6 +67,19 @@ public class App
     	long totalMatched = memberNames.stream().filter((s) -> s.startsWith("A")).count();
     	
     	System.out.println(totalMatched);
+    	
+    	//DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/DD);
+    	//ZoneId is time zones!
+    	
+    	LocalDate localDate = LocalDate.now();
+    	
+    	LocalDateTime localDateTime = LocalDateTime.now();
+    	
+    	System.out.println(localDate);
+    	
+    	System.out.println(localDateTime);
+    	
+    	
     	
         System.out.println( "Hello World!" );
         Toolkit.getDefaultToolkit().beep();
