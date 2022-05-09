@@ -19,10 +19,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
+// import com.quintrix.jfs.quintrixspring.CarsService;
 import com.quintrix.jfs.quintrixspring.models.Car;
+import com.quintrix.jfs.quintrixspring.service.CarsService;
 
 @RestController
 public class CarsController {
+  @Autowired
+  CarsService carsService;
+  // com.quintrix.jfs.quintrixspring.service.CarsService carsService;
   List<Car> carsList = new ArrayList<>(Arrays.asList(new Car(1L, "Ford", "SUV", 2011),
       new Car(2L, "Honda", "SUV", 2005), new Car(3L, "Volvo", "Truck", 2015)));
 
@@ -57,11 +62,7 @@ public class CarsController {
     Optional<Car> car =
         carsList.stream().filter(c -> c.getId().longValue() == id.longValue()).findAny();
 
-    if (car.isPresent()) {
-      return car.get();
-    } else {
-      return null;
-    }
+    return carsService.getCarByID(id);
   }
 
 
@@ -79,17 +80,18 @@ public class CarsController {
 
   }
 
-  @Autowired
-  CarsController controller;
+  // @Autowired
+  // CarsController controller;
 
-@GetMapping("users")
-public ResponseEntity<Car> getById(@PathVariable long id){
-  ResponseEntity<Car> user = Car.getId(id);
-  Optional<Car> car = carsList.stream().filter(c -> c.getId().longValue() == id).findAny();
-  if(car.isPresent()) {
-    return ResponseEntity<Car>(Car.getId(), HttpStatus.OK);
+  @GetMapping("users/{id}")
+  public ResponseEntity<Car> getById(@PathVariable long id) {
+    // ResponseEntity<Car> user = Car.getId();
+    Optional<Car> car = carsList.stream().filter(c -> c.getId().longValue() == id).findAny();
+    if (car.isPresent()) {
+      return new ResponseEntity<Car>(car.get(), HttpStatus.OK);
+    }
+    return null;
   }
-}
 
 
 
